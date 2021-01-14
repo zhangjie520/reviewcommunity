@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function alertName(e)
+        {
+            var name=$('#name').val();
+            var name2=e.getAttribute("value");
+            var name3=$('.name').val();
+            alert(name);
+            alert(name2);
+            alert(name3);
+            $('#name3').val(name);
+            var inputs=document.body.classList;
+            alert(inputs.size);
+        }
+
+    </script>
+</head>
+<body>
+<input id="name" class="name" type="text" value="张杰" onclick="alertName(this)">
+<input id="name2" class="name" type="text" value="张杰" >
+<input id="name3" class="name" type="text" value="张杰" >
+</body>
+</html>
