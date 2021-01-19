@@ -1,0 +1,15 @@
+.avatar{
+    width: 45px;
+    height: 45px;
+}
+.main{
+    margin: 30px;
+}
+body{
+    background-color:#efefef;
+}
+.text-desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}

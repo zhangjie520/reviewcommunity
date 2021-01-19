@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>demo</title>
+    <title th:text="${sectionName}"></title>
     <script src="/js/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="/css/bootstrap.css">
     <script src="/js/bootstrap.js"></script>
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/profile.css">
 </head>
 <body>
-<div th:insert="~{navigation :: nav}"></div>
+<div th:insert="~{navigation::nav}"></div>
 <div class="container-fluid main">
     <div class="row">
         <div class="col-lg-9">
@@ -22,8 +22,12 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" ><a th:href="'/question/'+${question.id}"><span th:text="${question.title}"></span></a></h4>
-                    <span th:text="${question.description}"></span><br>
+                    <h4 class="media-heading" >
+                        <a th:href="@{'/question/'+${question.id}}">
+                            <span th:text="${question.title}"></span>
+                        </a>
+                    </h4>
+                    <span th:text="${question.getDescription()}"></span><br>
                     <span class="text-desc"> <span th:text="${question.getCommentCount()}"></span> 个评论 •  <span th:text="${question.getViewCount()}"></span> 次浏览  • <span th:text="${#dates.format(question.getGmtCreate(),'yyyy-MM-dd HH:mm')}"></span></span>
                 </div>
             </div>
@@ -31,23 +35,23 @@
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li th:if="${pagination.showFirstPage}">
-                        <a th:href="@{/(page=1)}" aria-label="fist">
+                        <a th:href="@{'/profile/'+${section}(page=1)}" aria-label="fist">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li th:if="${pagination.showPrevious}">
-                        <a th:href="@{/(page=${pagination.currentPage}-1)}" aria-label="Previous">
+                        <a th:href="@{'/profile/'+${section}(page=${pagination.currentPage}-1)}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
-                    <li th:each="page : ${pagination.pages}" th:class="${pagination.currentPage==page}?'active':''"><a th:href="@{/(page=${page})}" th:text="${page}"></a></li>
+                    <li th:each="page : ${pagination.pages}" th:class="${pagination.currentPage==page}?'active':''"><a th:href="@{'/profile/'+${section}(page=${page})}" th:text="${page}"></a></li>
                     <li th:if="${pagination.showNext}">
-                        <a th:href="@{/(page=${pagination.currentPage}+1)}" aria-label="Next">
+                        <a th:href="@{'/profile/'+${section}(page=${pagination.currentPage}+1)}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li th:if="${pagination.showEndPage}">
-                        <a th:href="@{/(page=${pagination.totalPage})}" aria-label="end">
+                        <a th:href="@{'/profile/'+${section}(page=${pagination.totalPage})}" aria-label="end">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -55,9 +59,14 @@
             </nav>
         </div>
         <div class="col-lg-3">
-            <h3>问题发起指南</h3>
-            • 问题标题: 请用精简的语言描述您发布的问题，不超过25字 <br>
-            • 问题补充: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料：<br>
+            <div class="list-group section">
+                <a href="/profile/questions" class="list-group-item" th:classappend="${section=='questions'}?'active':''">
+                    我的问题
+                </a>
+                <a href="/profile/replies" class="list-group-item" th:classappend="${section=='replies'}?'active':''">
+                    我的回复<span class="badge">14</span>
+                </a>
+            </div>
         </div>
     </div>
 </div>

@@ -1,0 +1,20 @@
+
+.main{
+    margin: 30px;
+    background-color:white ;
+}
+body{
+    background-color:#efefef;
+}
+.section{
+    margin-top: 15px;
+}
+.avatar{
+    width: 45px;
+    height: 45px;
+}
+.text-desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}

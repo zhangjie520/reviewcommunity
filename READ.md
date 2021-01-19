@@ -3,3 +3,6 @@
 ##tool
 
 ##related information
+```bash
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+```

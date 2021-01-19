@@ -1,4 +1,4 @@
-package com.example.demo.Provider;
+package com.example.demo.provider;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.dto.AccessTokenDTO;
@@ -16,8 +16,7 @@ import java.io.IOException;
 @Component
 public class GithubProvider {
     public String getAccessToken(AccessTokenDTO accessTokenDTO){
-        MediaType mediaType
-                = MediaType.get("application/json; charset=utf-8");
+        MediaType mediaType = MediaType.get("application/json; charset=utf-8");
 
         OkHttpClient client = new OkHttpClient();
 
@@ -46,7 +45,7 @@ public class GithubProvider {
 
         try (Response response = client.newCall(request).execute()) {
             return JSON.parseObject(response.body().string(),GithubUser.class);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
