@@ -2,3 +2,66 @@
     font-size: 15px;
     color: #999999;
 }
+.btn-comment{
+    float: right;
+    margin-bottom: 15px;
+}
+.comment{
+    margin: 15px 0;
+}
+.comment-section{
+    margin-top:10px;
+}
+.comment-text{
+    margin: 25px 0;
+}
+.comment-count{
+    margin-top: 20px;
+}
+.comment-sp{
+    margin-top: 0;
+}
+.menu{
+    color: #999999;
+    margin-top: 5px;
+}
+.menu .icon{
+    margin-right: 6px;
+}
+.menu .active{
+    color: #499ef3;
+}
+.menu .icon:hover{
+    cursor: pointer;
+    color: #499ef3;
+}
+.comments{
+    border-bottom: 1px solid #eeeeee;
+    margin-top: 15px;
+    padding-bottom: 5px;
+}
+.sub-comments{
+    border: 1px solid #eee;
+    padding-top: 15px;
+    border-radius: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.sub-comments .btn{
+    margin: 15px 0;
+}
+.comment-content{
+    margin-top: 15px;
+}
+.question-tag{
+    margin-right: 5px;
+}
+.question-related{
+    list-style: none;
+    padding-left: 0px;
+    font-size: 22px;
+    line-height: 25px;
+}
+.advertise-img{
+    width: 150px;
+}

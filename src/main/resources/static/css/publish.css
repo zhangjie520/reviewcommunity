@@ -12,3 +12,15 @@ body{
 .error{
     margin-top: 5px;
 }
+.select-tag{
+    display: none;
+    margin-top: 5px;
+}
+.publish-tag-tab{
+    padding-top: 5px;
+}
+.publish-tag-tab .label-info{
+    margin: 5px 5px;
+    white-space:normal;
+    display: inline-block;
+}

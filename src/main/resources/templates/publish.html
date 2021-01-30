@@ -5,8 +5,27 @@
     <title>demo</title>
     <script src="/js/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/editormd.min.css">
+    <link rel="stylesheet" href="/css/index.css">
     <script src="/js/bootstrap.js"></script>
     <link rel="stylesheet" href="/css/publish.css">
+    <script src="/js/publish.js"></script>
+    <script src="/js/editormd.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var editor = editormd("question_editor", {
+                width  : "100%",
+                height : 350,
+                watch  : false,
+                delay  : 0,
+                placeholder:"问题描述...",
+                path   : "/js/lib/",
+                imageUpload    : true,
+                imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL : "/file/upload"
+            });
+        });
+    </script>
 </head>
 <body>
 <div th:insert="~{navigation::nav}"></div>
@@ -15,22 +34,48 @@
         <div class="col-lg-9">
             <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
             <hr>
-            <form action="/publish"  method="post">
+            <form action="/publish" method="post">
                 <input type="hidden" name="id" th:value="${id}">
                 <div class="form-group">
                     <label for="title">问题标题（简单扼要）:</label>
-                    <input type="text" class="form-control"  id="title" name="title" placeholder="问题标题..." th:value="${title}">
+                    <input type="text" autocomplete="off" class="form-control" id="title" name="title"
+                           placeholder="问题标题..." th:value="${title}">
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="question_editor">
                     <label for="description">问题补充 (必填，请参照右侧提示):</label>
-                    <textarea class="form-control"  rows="10" cols="30" id="description" name="description" th:text="${description}" placeholder="问题描述..."></textarea>
+                    <textarea style="display: none" class="form-control" rows="10" cols="30" id="description" name="description"
+                              th:text="${description}" ></textarea>
                 </div>
                 <div class="form-group">
                     <label for="tag">添加标签:</label>
-                    <input class="form-control"  id="tag" name="tag" th:value="${tag}" placeholder="输入标签\以逗号分开">
+                    <input class="form-control" autocomplete="off" id="tag" name="tag" th:value="${tag}"
+                           placeholder="输入标签\以逗号分开" onclick="showSelectTag()">
+                    <div>
+                    <div class="select-tag" id="select_tag">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" th:each="selectCategory,selectCategoryStat:${tags}" th:class="${selectCategoryStat.first ? 'active':''}">
+                                <a th:href="'#'+${selectCategory.categoryName}" aria-controls="home" role="tab"
+                                                                                        data-toggle="tab" th:text="${selectCategory.categoryName}"></a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane publish-tag-tab" th:id="${selectCategory.categoryName}" th:classappend="${selectCategoryStat.first ? 'active':''}" th:each="selectCategory,selectCategoryStat:${tags}">
+                                <span class="question-tag label label-info" th:each="selectTag:${selectCategory.tags}"  onclick="selectTag(this)" th:data-tag="${selectTag}">
+                                        <span class="glyphicon glyphicon-tags"></span>
+                                        <span class="label label-info" th:text="${' '+selectTag}"></span>
+                                </span>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="profile">...</div>
+                        </div>
+                    </div>
+
+                    </div>
                 </div>
                 <div>
-                    <span class="alert alert-danger error" role="alert" th:if="${error!=null}" th:text="${error}"></span>
+                    <span class="alert alert-danger error" role="alert" th:if="${error!=null}"
+                          th:text="${error}"></span>
                     <button type="submit" class="btn btn-success btn-publish">提交</button>
                 </div>
 
@@ -43,5 +88,7 @@
         </div>
     </div>
 </div>
+<!--foot-->
+<div th:insert="~{footer::foot}"></div>
 </body>
 </html>

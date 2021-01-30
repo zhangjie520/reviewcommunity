@@ -1,8 +1,10 @@
 package com.example.demo.Interceptor;
 
 import com.example.demo.mapper.UserMapper;
+import com.example.demo.model.Notification;
 import com.example.demo.model.User;
 import com.example.demo.model.UserExample;
+import com.example.demo.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,6 +25,8 @@ import java.util.List;
 public class SessionInterceptor implements HandlerInterceptor {
     @Resource
     private UserMapper userMapper;
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -37,6 +41,8 @@ public class SessionInterceptor implements HandlerInterceptor {
                     List<User> user = userMapper.selectByExample(userExample);
                     if (user != null && user.size()!=0) {
                         request.getSession().setAttribute("user", user.get(0));
+                        Long unreadCount = notificationService.unReadCount(user.get(0).getId());
+                        request.getSession().setAttribute("unreadCount",unreadCount);
                     }
                     break;
                 }

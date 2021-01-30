@@ -31,7 +31,13 @@
         </javaClientGenerator>
 
         <table  tableName="user" domainObjectName="User" ></table>
-        <table  tableName="question" domainObjectName="Question" ></table>
+        <table  tableName="question" domainObjectName="Question" >
+            <columnOverride column="description" jdbcType="VARCHAR"></columnOverride>
+        </table>
+        <table  tableName="comment" domainObjectName="Comment" >
+            <columnOverride column="content" jdbcType="VARCHAR"></columnOverride>
+        </table>
+        <table  tableName="notification" domainObjectName="Notification"></table>
 
     </context>
 </generatorConfiguration>

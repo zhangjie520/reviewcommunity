@@ -7,12 +7,17 @@ package com.example.demo.exception;
  */
 public class CustomException extends RuntimeException {
     private String message;
+    private Integer code;
     public CustomException(ICustomErrorCode customErrorCode) {
         this.message=customErrorCode.getMessage();
+        this.code=customErrorCode.getCode();
     }
 
     @Override
     public String getMessage() {
         return this.message;
+    }
+    public Integer getCode(){
+        return this.code;
     }
 }
